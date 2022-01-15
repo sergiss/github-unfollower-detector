@@ -1,0 +1,29 @@
+.tab {
+  overflow: hidden;
+
+  background-color: #f1f1f1;
+}
+
+.tab input {
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+}
+
+.tab input:hover {
+  background-color: #ddd;
+}
+
+.tab input.active {
+  background-color: #ccc;
+}
+
+td {
+    vertical-align: middle;
+}
+
