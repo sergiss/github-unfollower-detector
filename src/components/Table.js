@@ -2,24 +2,27 @@ import React from "react";
 import { useState } from "react";
 
 function Table({ columns, rows }) {
-
+  // TODO : setRowsPerPage
   const [ rowsPerPage, setRowsPerPage ] = useState(7);
+  // Current page
   const [ page, setPage ] = useState(1);
-
+  // Compute number of pages
   const maxPages = Math.ceil(rows.length/rowsPerPage);
-
-  let sortColumn = "id";
-
+  // Sort by id column
+  let sortColumn = "id"; // TODO : make configurable
+  // Sort rows
   var sortedRows = rows.sort((a, b) => {
     let v1 = a[sortColumn];
     let v2 = b[sortColumn];
     if(v1 === v2) return 0;
     return v1 < v2 ? -1 : 1
   })
+  // Get data range
   const start = (page - 1) * rowsPerPage;
   const end   = start + rowsPerPage;
   var computedRows = sortedRows.slice(start, end);  
- 
+  
+  // Navigation method
   const navigatePage = (e)=> {
     if(e.target.value === "Next") {
         setPage(Math.min(maxPages, page + 1))
