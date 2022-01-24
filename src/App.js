@@ -140,25 +140,25 @@ function App() {
   const elements = [
     {
       id:"following",
-      label: "Following",
+      label: `Following(${following.length})`,
       title: "List of users you are following",
       render: ()=> (<Table columns={columns} rows={following}/>)
     },
     {
       id:"followers",
-      label: "Followers",
+      label: `Followers(${followers.length})`,
       title: "List of users who are following you",
       render: ()=> (<Table columns={columns} rows={followers}/>)
     },
     {
       id:"notMutual",
-      label: "Not Mutual",
+      label: `Not Mutual(${notMutual.length})`,
       title: "List of users you follow, but they don't follow you",
       render: ()=> (<Table columns={columns} rows={notMutual}/>)
     },
     {
       id:"unfollowers",
-      label: "Unfollowers",
+      label: `Unfollowers(${unfollowers.length})`,
       title: "List of users who have unfollowed you :(",
       render: ()=> (<Table columns={columns} rows={unfollowers}/>)
     }
