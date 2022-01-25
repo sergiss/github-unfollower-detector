@@ -7,15 +7,14 @@ body {
   margin: 0;
 }
 
-#root {
+.container {
   display: flex;
-  flex-direction: column;
+  flex-direction: column;  
   align-items: center;
   justify-content: center;
-}
-
-.container {
+  overflow: auto;
   padding: 10px;
+  box-sizing: border-box;
 }
 
 .avatar {
