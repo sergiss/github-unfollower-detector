@@ -107,7 +107,7 @@ function App() {
      style: {
       width: "calc(100% - 60px)"
     },
-     render: (data)=> <a href={`${GITHUB_URL}/${data['id']}`}>{data['id']}</a>
+     render: (data)=> data['id']
     },
     {
       id: 'avatar_url',
@@ -139,37 +139,42 @@ function App() {
 
   }
 
+  const handleSelection = (id)=> {
+    const url = `${GITHUB_URL}\\${id}`;
+    window.open(url, '_blank');
+  }
+
   const elements = [
     {
       id:"following",
       label: `Following(${following.length})`,
       title: "List of users you are following",
-      render: ()=> (<Table columns={columns} rows={following}/>)
+      render: ()=> (<Table columns={columns} rows={following} handleSelection={handleSelection}/>)
     },
     {
       id:"followers",
       label: `Followers(${followers.length})`,
       title: "List of users who are following you",
-      render: ()=> (<Table columns={columns} rows={followers}/>)
+      render: ()=> (<Table columns={columns} rows={followers} handleSelection={handleSelection}/>)
     },
     {
       id:"notMutual",
       label: `Not Mutual(${notMutual.length})`,
       title: "List of users you follow, but they don't follow you",
-      render: ()=> (<Table columns={columns} rows={notMutual}/>)
+      render: ()=> (<Table columns={columns} rows={notMutual} handleSelection={handleSelection}/>)
     },
     {
       id:"unfollowers",
       label: `Unfollowers(${unfollowers.length})`,
       title: "List of users who have unfollowed you :(",
-      render: ()=> (<Table columns={columns} rows={unfollowers}/>)
+      render: ()=> (<Table columns={columns} rows={unfollowers} handleSelection={handleSelection}/>)
     }
   ]
 
   return <div className="container">
     <UserForm user={user} setUser={setUser} setQuery={setQuery} />
     <TabPanel elements={elements}/>    
-    <a href="https://github.com/sergiss/github-unfollower-detector" target="_blank"><i class="fa">&#xf09b;</i> Source Code </a>
+    <a href="https://github.com/sergiss/github-unfollower-detector" target="_blank"><i className="fa">&#xf09b;</i> Source Code </a>
   </div>;
 }
 

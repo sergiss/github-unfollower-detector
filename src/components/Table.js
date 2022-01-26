@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 
-function Table({ columns, rows }) {
+function Table({ columns, rows, handleSelection }) {
   // TODO : setRowsPerPage
   const [ rowsPerPage, setRowsPerPage ] = useState(7);
   // Current page
@@ -34,7 +34,7 @@ function Table({ columns, rows }) {
   return (
     <div className="table-container">   
 
-      <table className="table table-striped">
+      <table className="table table-hover table-striped">
         <thead>
           <tr>
             {columns.map((column) => (
@@ -46,7 +46,9 @@ function Table({ columns, rows }) {
         </thead>
         <tbody>
           {computedRows.map((row) => (
-            <tr key={row.id}>
+            <tr key={row.id} className="pointer" onClick={(e)=> {
+              handleSelection(row.id);
+            }}>
               {columns.map((column) => (
                 <td key={column.id}>{column.render(row)}</td>
               ))}
