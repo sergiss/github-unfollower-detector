@@ -4,6 +4,8 @@ import UserForm from "./components/UserForm";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TabPanel from "./components/TabPanel";
 
+const GITHUB_URL = 'https://github.com';
+
 const getData = async (login, query) => {
   let result = {};
   let data, i = 0;
@@ -105,7 +107,7 @@ function App() {
      style: {
       width: "calc(100% - 60px)"
     },
-     render: (data)=>data['id']
+     render: (data)=> <a href={`${GITHUB_URL}/${data['id']}`}>{data['id']}</a>
     },
     {
       id: 'avatar_url',
