@@ -1,5 +1,5 @@
 # github-unfollower-detector
-:skull: Small application to detect evil users who have stopped following you on Github :skull:
+:skull: Small application to detect evil users who have stopped following you on Github
 
 ### [Demo](https://sergiss.github.io/github-unfollower-detector/)
 
