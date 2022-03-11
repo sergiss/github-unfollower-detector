@@ -57,7 +57,7 @@ function App() {
     // Save data to localStorage
     localStorage.setItem(`${login}-followers` , JSON.stringify(followers ));
     localStorage.setItem(`${login}-unfriendly`, JSON.stringify(unfriendly));
-    localStorage.setItem(`${login}-following` , JSON.stringify(following));
+    localStorage.setItem(`${login}-following` , JSON.stringify(following ));
 
     // Refresh
     setData({
@@ -67,21 +67,6 @@ function App() {
       unfriendly
     });
     
-  }
-
-  const loadStoredData = (login) => {
-
-    const following  = JSON.parse(localStorage.getItem(`${login}-following`))  || {};
-    const followers  = JSON.parse(localStorage.getItem(`${login}-followers`))  || {};
-    const unfriendly = JSON.parse(localStorage.getItem(`${login}-unfriendly`)) || {};
-
-    setData({
-      ...data,
-      following,
-      followers,
-      unfriendly
-    });
-
   }
 
   useEffect(() => {
@@ -107,7 +92,7 @@ function App() {
      style: {
       width: "calc(100% - 60px)"
     },
-     render: (data)=> data['id']
+     render: (data)=> data['id'],
     },
     {
       id: 'avatar_url',
@@ -124,6 +109,17 @@ function App() {
   let notMutual   = [];
   let unfollowers = [];
 
+  let friendSet = new Set();
+
+  const friendInfo = {
+    id: 'info',
+     label:'Info',
+     style: {
+      width: "60px"
+    },
+     render: (data)=> friendSet.has(data['id']) ? "Friend" : ""
+  }
+
   if(data) {
 
     let keys = Object.keys(data.following);
@@ -131,6 +127,8 @@ function App() {
       if(!data.followers[keys[i]]) {
         // console.log(keys[i])
         notMutual.push(data.following[keys[i]]);
+      } else {
+        friendSet.add(keys[i]);
       }
     }
 
@@ -150,7 +148,7 @@ function App() {
       id:"following",
       label: `Following(${following.length})`,
       title: "List of users you are following",
-      render: ()=> (<Table columns={columns} rows={following} handleSelection={handleSelection}/>)
+      render: ()=> (<Table columns={[...columns, friendInfo]} rows={following} handleSelection={handleSelection}/>)
     },
     {
       id:"followers",
