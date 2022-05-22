@@ -17,6 +17,12 @@ body {
   overflow: auto;
   padding: 10px;
   box-sizing: border-box;
+  
+}
+
+.title {
+  margin-bottom: 10px;
+  text-shadow: 1px 1px 2px lightgray;
 }
 
 .avatar {
@@ -72,4 +78,26 @@ body {
 
 .pointer {
   cursor: pointer;
+}
+
+.message {
+  height: 40px;
+  width: 650px;
+  max-width: 750px;
+  margin: 10px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.message p {
+  margin: 0;
+  padding: 0;
+}
+
+.message-error {
+  background: #edaeae;
+  border: 1px solid #ff7676;
+  color: red
 }

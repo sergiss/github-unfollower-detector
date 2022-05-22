@@ -19,7 +19,7 @@ const getStyle = ()=> {
 function Spinner() {
     return (
         <div style={getStyle()}>
-            <img src={loading} alt="loading" width='200px' height='200px'></img>
+            <img src={loading} alt="loading" width='350px' height='350px'></img>
         </div>
     )
 }

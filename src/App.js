@@ -37,6 +37,18 @@ function App() {
   const [ data, setData ] = useState(null);
 
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState(null);
+
+  const showMessage = (className, text) => {
+    setMessage({
+      ...message,
+      className, text
+    });
+
+    setTimeout(()=> {
+      setMessage(null);
+    }, 5000);
+  }
 
   const refreshCurrentData = async (login)=> {
 
@@ -85,9 +97,11 @@ function App() {
     if(query) {
       setQuery(false);
       if(user.trim() !== "") {
-        refreshCurrentData(user).catch(error => {
+        refreshCurrentData(user).catch(e => {
 
-         // TODO : An error has occurred: 404
+          console.log(e);
+
+          showMessage("message-error", e.message);
 
         });
         localStorage.setItem("user", user);
@@ -182,7 +196,15 @@ function App() {
   ]
 
   return <div className="container">
+    
+    <h1 className="title">UNFOLLOWER DETECTOR</h1>
+
     {loading ? <Spinner/> : null}
+    {message ? (
+      <div className={`message ` + message.className}>
+        <p>{message.text}</p>
+      </div>
+    ) : null }
     <UserForm user={user} setUser={setUser} setQuery={setQuery} />
     <TabPanel elements={elements}/>    
     <a href="https://github.com/sergiss/github-unfollower-detector" target="_blank"><i className="fa">&#xf09b;</i> Source Code </a>
