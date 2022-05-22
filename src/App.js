@@ -3,6 +3,7 @@ import Table from "./components/Table";
 import UserForm from "./components/UserForm";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import TabPanel from "./components/TabPanel";
+import Spinner from "./components/Spinner";
 
 const GITHUB_URL = 'https://github.com';
 
@@ -35,38 +36,48 @@ function App() {
   const [ query, setQuery ] = useState(true);
   const [ data, setData ] = useState(null);
 
+  const [loading, setLoading] = useState(false);
+
   const refreshCurrentData = async (login)=> {
 
-    // Request data from the server
-    const following = await getData(login, "following");    
-    const followers = await getData(login, "followers");
+    setLoading(true);
 
-    // Save data from localStorage
-    const unfriendly  = JSON.parse(localStorage.getItem(`${login}-unfriendly`)) || {};  
-    let lastFollowers = JSON.parse(localStorage.getItem(`${login}-followers` )) || {};
+    try {
 
-    // Check unfriendly people
-    let keys = Object.keys(lastFollowers);
-    for(let i = 0; i < keys.length; ++i) {
-        if(!followers[keys[i]]) {
-          unfriendly[keys[i]] = lastFollowers[keys[i]];
-          unfriendly[keys[i]].date = new Date();
-        }
+      // Request data from the server
+      const following = await getData(login, "following");    
+      const followers = await getData(login, "followers");
+
+      // Save data from localStorage
+      const unfriendly  = JSON.parse(localStorage.getItem(`${login}-unfriendly`)) || {};  
+      let lastFollowers = JSON.parse(localStorage.getItem(`${login}-followers` )) || {};
+
+      // Check unfriendly people
+      let keys = Object.keys(lastFollowers);
+      for(let i = 0; i < keys.length; ++i) {
+          if(!followers[keys[i]]) {
+            unfriendly[keys[i]] = lastFollowers[keys[i]];
+            unfriendly[keys[i]].date = new Date();
+          }
+      }
+
+      // Save data to localStorage
+      localStorage.setItem(`${login}-followers` , JSON.stringify(followers ));
+      localStorage.setItem(`${login}-unfriendly`, JSON.stringify(unfriendly));
+      localStorage.setItem(`${login}-following` , JSON.stringify(following ));
+
+      // Refresh
+      setData({
+        ...data,
+        following,
+        followers,
+        unfriendly
+      });
+
+    } finally {
+      setLoading(false);
     }
 
-    // Save data to localStorage
-    localStorage.setItem(`${login}-followers` , JSON.stringify(followers ));
-    localStorage.setItem(`${login}-unfriendly`, JSON.stringify(unfriendly));
-    localStorage.setItem(`${login}-following` , JSON.stringify(following ));
-
-    // Refresh
-    setData({
-      ...data,
-      following,
-      followers,
-      unfriendly
-    });
-    
   }
 
   useEffect(() => {
@@ -171,6 +182,7 @@ function App() {
   ]
 
   return <div className="container">
+    {loading ? <Spinner/> : null}
     <UserForm user={user} setUser={setUser} setQuery={setQuery} />
     <TabPanel elements={elements}/>    
     <a href="https://github.com/sergiss/github-unfollower-detector" target="_blank"><i className="fa">&#xf09b;</i> Source Code </a>
