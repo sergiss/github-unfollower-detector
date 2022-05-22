@@ -1,13 +1,14 @@
 {
   "files": {
     "main.css": "/github-unfollower-detector/static/css/main.f75d13c6.css",
-    "main.js": "/github-unfollower-detector/static/js/main.5c072d47.js",
+    "main.js": "/github-unfollower-detector/static/js/main.abd94298.js",
+    "static/media/spinner.gif": "/github-unfollower-detector/static/media/spinner.6eb2b085d6d0a985bbb0.gif",
     "index.html": "/github-unfollower-detector/index.html",
     "main.f75d13c6.css.map": "/github-unfollower-detector/static/css/main.f75d13c6.css.map",
-    "main.5c072d47.js.map": "/github-unfollower-detector/static/js/main.5c072d47.js.map"
+    "main.abd94298.js.map": "/github-unfollower-detector/static/js/main.abd94298.js.map"
   },
   "entrypoints": [
     "static/css/main.f75d13c6.css",
-    "static/js/main.5c072d47.js"
+    "static/js/main.abd94298.js"
   ]
 }
